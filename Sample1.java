@@ -46,17 +46,21 @@ public class Sample1 {
 		 
 	 }
 	 
-	 public static void select() throws SQLException {
+	 public static void select(int id,String name) throws SQLException {
 		 
 		 Connection con = ConnectionUtil.getConnection();
-		 String sql = "select * from Customer";
+		 String sql = "if exists(select * from Customer where id==?, name==?)";
 		 PreparedStatement pst = con.prepareStatement(sql);
+		 pst.setInt(1, id);
+	     pst.setString(2, name);
 		 ResultSet rs = pst.executeQuery();
-			while(rs.next()){
-			   Integer id = rs.getInt("id");
-			   String name = rs.getString("name");
-			   System.out.println(id +"-" + name );
-			}
+		 System.out.println(rs);
+		
+			/*while(rs.next()){
+			   Integer id1 = rs.getInt("id");
+			   String name1 = rs.getString("name");
+			   System.out.println(id1 +"-" + name1 );
+			}*/
 	 }
 
 	
